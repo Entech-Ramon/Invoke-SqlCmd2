@@ -6,8 +6,10 @@
     $ModuleRoot = $PSScriptRoot
 
 #Get public and private function definition files.
+    $PrivateTest = Test-Path "$PSScriptRoot\Private\"
+
     $Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\*.ps1 -ErrorAction SilentlyContinue )
-    $Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue )
+    if($PrivateTest) { $Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue ) }
 
 #Dot source the files
     Foreach($import in @($Public + $Private))
